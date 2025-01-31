@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:quiz_app_getx/screens/home_screen.dart';
+import 'package:quiz_app_getx/views/home_screen.dart';
 import 'package:quiz_app_getx/services/hive_service.dart';
 
 import 'models/question_model.dart';
