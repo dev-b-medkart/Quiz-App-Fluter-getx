@@ -64,9 +64,12 @@ class _PlayQuizPageState extends State<PlayQuizPage> {
             return FloatingActionButton.extended(
               onPressed: () {
                 if (homeController.quiz != null) {
-                  Get.offAll(QuizResult(
-                      quiz: homeController.quiz!,
-                      userAnswers: playQuizController.userAnswers));
+
+                  homeController.submitQuiz(playQuizController.userAnswers);
+                  Get.offAll(QuizResult());
+                  // Get.offAll(QuizResult(
+                  //     quiz: homeController.quiz!,
+                  //     userAnswers: playQuizController.userAnswers));
                 }
               },
               label: Text('Submit Quiz',

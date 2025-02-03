@@ -32,9 +32,25 @@ class HomeController extends GetxController {
     }
   }
   Quiz? quiz;
+  var userAnswers = <int>[];
+  int score=0;
 
-  void playQuiz(Quiz quiz1) {
-    quiz=quiz1;
-    // Get.to(() => PlayQuizPage(quiz: quiz));
+  void submitQuiz(List<int>userAnswers){
+    this.userAnswers=userAnswers;
+    for (int i = 0; i < (quiz?.questions ??[]).length; i++) {
+      if (userAnswers[i] == quiz?.questions[i].correctOptionIndex) {
+        score++;
+      }
+    }
+  }
+
+  void resetScore(){
+    score=0;
+  }
+
+
+  void playQuiz(Quiz quiz) {
+    // quiz=quiz1;
+    this.quiz=quiz;
   }
 }
