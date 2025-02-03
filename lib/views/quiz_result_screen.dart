@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../controllers/home_page_controller.dart';
 import '../models/quiz_model.dart';
 import 'home_screen.dart';
 
 class QuizResult extends StatefulWidget {
   final Quiz quiz;
   final List<int> userAnswers;
-
   const QuizResult({super.key, required this.quiz, required this.userAnswers});
+
 
   @override
   State<QuizResult> createState() => _QuizResultState();
@@ -24,6 +26,8 @@ class _QuizResultState extends State<QuizResult> {
 
   @override
   Widget build(BuildContext context) {
+    final homeController=Get.find<HomeController>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -32,7 +36,8 @@ class _QuizResultState extends State<QuizResult> {
         ),
         centerTitle: true,
         backgroundColor: Colors.green[400],
-        elevation: 2,
+        elevation: 2
+        ,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -111,7 +116,7 @@ class _QuizResultState extends State<QuizResult> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) =>  HomePage()),
                         (route) => false,
                   );
                 },
@@ -137,88 +142,3 @@ class _QuizResultState extends State<QuizResult> {
 
 
 
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:quiz_app/screens/home_page.dart';
-//
-// import '../models/quiz_model.dart';
-//
-// class QuizResult extends StatefulWidget {
-//   final Quiz quiz;
-//   final List<int> userAnswers;
-//   const QuizResult({super.key, required this.quiz, required this.userAnswers});
-//
-//   @override
-//   State<QuizResult> createState() => _QuizResultState();
-// }
-//
-// class _QuizResultState extends State<QuizResult> {
-//   int score = 0;
-//   late int numOfQuestion;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     numOfQuestion = widget.quiz.questions.length;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(
-//           'Result',
-//           style: TextStyle(fontWeight: FontWeight.bold),
-//         ),
-//         centerTitle: true,
-//         backgroundColor: Colors.green[300],
-//       ),
-//       body: Column(
-//         crossAxisAlignment: CrossAxisAlignment.stretch,
-//         children: [
-//           // .currentQuestion.options.asMap().entries.map((entry) {
-//           ...widget.quiz.questions.asMap().entries.map((entry) {
-//             return Card(
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Row(
-//                     children: [
-//                       Text(
-//                         'Q ${entry.key + 1}.',
-//                         style: TextStyle(
-//                             fontWeight: FontWeight.w800, fontSize: 20),
-//                       ),
-//                       SizedBox(
-//                         width: 15,
-//                       ),
-//                       Expanded(
-//                         child: Text(
-//                           '${entry.value.text}asjfhjkashjfdhajlshjfkhaslhfjkhajskhfdkjhakjshdfkjahjkdhfkjadshkjfhkjasdkjfhaskjdhfkjhaksjdhfkjlasf',
-//                           style: TextStyle(
-//                               fontWeight: FontWeight.w600, fontSize: 20),
-//                           softWrap: true,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             );
-//           }),
-//
-//           ElevatedButton(
-//               onPressed: () {
-//                 Navigator.of(context).pushAndRemoveUntil(
-//                     MaterialPageRoute(builder: (context) => HomePage()),
-//                     (route) => false);
-//               },
-//               child: Text('Main Menu'))
-//         ],
-//       ),
-//     );
-//   }
-// }

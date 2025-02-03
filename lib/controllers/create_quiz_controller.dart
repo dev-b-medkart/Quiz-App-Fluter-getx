@@ -30,7 +30,7 @@ class CreateQuizController extends GetxController {
     final quiz = Quiz(title: quizTitle, questions: []);
 
     final updatedQuiz =
-        Get.to(() => QuestionFormPage(quiz: quiz, numQuestions: numQuestions));
+        await Get.to(() => QuestionFormPage(quiz: quiz, numQuestions: numQuestions));
 
     if(updatedQuiz!=null){
       Get.back(result: updatedQuiz);

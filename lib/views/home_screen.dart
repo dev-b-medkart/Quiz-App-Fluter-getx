@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:get/get.dart';
 import 'package:quiz_app_getx/controllers/home_page_controller.dart';
-import '../services/hive_service.dart';
+import 'package:quiz_app_getx/views/play_quiz_screen.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-final controller=Get.put(HomeController());
+  HomePage({super.key});
+  final controller = Get.put(HomeController());
+  // final controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,32 +14,30 @@ final controller=Get.put(HomeController());
         title: const Center(child: Text('Quizzes')),
         actions: [
           IconButton(
-            onPressed:
-            },
+            onPressed: controller.addQuiz,
             icon: const Icon(Icons.add),
           ),
         ],
       ),
-      body: ValueListenableBuilder(
-        valueListenable: Hive.box<Quiz>('quizzes').listenable(),
-        builder: (context, Box<Quiz> box, _) {
-          if (box.isEmpty) {
-            return const Center(child: Text("No Quizzes Created"));
+      body: Obx(
+        () {
+          if (controller.quizzes.isEmpty) {
+            return Center(
+              child: Text("No Quizzes Created!!"),
+            );
           }
-
-          final quizzes = box.values.toList();
-
           return ListView.builder(
-            itemCount: quizzes.length,
+            itemCount: controller.quizzes.length,
             itemBuilder: (context, index) {
-              final quiz = quizzes[index];
+              final quiz = controller.quizzes[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PlayQuizPage(quiz: quiz)),
-                  ),
+                  onTap: () {
+                    controller.playQuiz(quiz);
+                    Get.to(() => PlayQuizPage());
+                  },
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.0),
@@ -46,7 +45,8 @@ final controller=Get.put(HomeController());
                     elevation: 4,
                     color: const Color(0xFFF3F4F6),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 16.0),
                       child: Row(
                         children: [
                           // Quiz Icon
@@ -57,7 +57,8 @@ final controller=Get.put(HomeController());
                               color: const Color(0xFF57955C).withOpacity(0.1),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.quiz, color: Color(0xFF57955C), size: 36),
+                            child: const Icon(Icons.quiz,
+                                color: Color(0xFF57955C), size: 36),
                           ),
                           const SizedBox(width: 16),
 
@@ -91,21 +92,24 @@ final controller=Get.put(HomeController());
                           Row(
                             children: [
                               Tooltip(
-                                message: "Play Quiz",
+                                message: "Play Quiz2",
                                 child: InkWell(
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => PlayQuizPage(quiz: quiz)),
-                                  ),
+                                  onTap: () {
+                                    controller.playQuiz(quiz);
+                                    Get.to(() => PlayQuizPage());
+                                  },
                                   borderRadius: BorderRadius.circular(50),
-                                  splashColor: Colors.greenAccent.withOpacity(0.2),
+                                  splashColor:
+                                      Colors.greenAccent.withOpacity(0.2),
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFF57955C).withOpacity(0.1),
+                                      color: const Color(0xFF57955C)
+                                          .withOpacity(0.1),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const Icon(Icons.play_arrow, color: Color(0xFF57955C), size: 30),
+                                    child: const Icon(Icons.play_arrow,
+                                        color: Color(0xFF57955C), size: 30),
                                   ),
                                 ),
                               ),
@@ -113,16 +117,20 @@ final controller=Get.put(HomeController());
                               Tooltip(
                                 message: "Delete Quiz",
                                 child: InkWell(
-                                  onTap: () => deleteQuiz(quiz.title),
+                                  onTap: () =>
+                                      controller.deleteQuiz(quiz.title),
                                   borderRadius: BorderRadius.circular(50),
-                                  splashColor: Colors.redAccent.withOpacity(0.2),
+                                  splashColor:
+                                      Colors.redAccent.withOpacity(0.2),
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFC84F4F).withOpacity(0.1),
+                                      color: const Color(0xFFC84F4F)
+                                          .withOpacity(0.1),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const Icon(Icons.delete, color: Color(0xFFC84F4F), size: 28),
+                                    child: const Icon(Icons.delete,
+                                        color: Color(0xFFC84F4F), size: 28),
                                   ),
                                 ),
                               ),
@@ -140,5 +148,4 @@ final controller=Get.put(HomeController());
       ),
     );
   }
-
 }

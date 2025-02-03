@@ -96,6 +96,7 @@ class _QuestionFormPageState extends State<QuestionFormPage> {
       floatingActionButton: ValueListenableBuilder(
         valueListenable: currentPage,
         builder: (context, value, child) {
+          // print("VALUE____________$value");
           if (value == widget.numQuestions - 1) {
             return FloatingActionButton(
               onPressed: _submitQuiz,
@@ -107,13 +108,6 @@ class _QuestionFormPageState extends State<QuestionFormPage> {
           }
         },
       ),
-      // floatingActionButton: (_pageController.page == widget.numQuestions - 1)
-      //     ? FloatingActionButton(
-      //         onPressed: _submitQuiz,
-      //         tooltip: 'Submit Quiz',
-      //         child: const Icon(Icons.check),
-      //       )
-      //     : null,
     );
   }
 }

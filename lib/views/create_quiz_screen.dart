@@ -4,15 +4,11 @@ import 'package:get/get.dart';
 import 'package:quiz_app_getx/controllers/create_quiz_controller.dart';
 import '../utils/validations.dart';
 
-class CreateQuizPage extends StatefulWidget {
-  const CreateQuizPage({super.key});
+class CreateQuizPage extends StatelessWidget {
+  CreateQuizPage({super.key});
 
-  @override
-  State<CreateQuizPage> createState() => _CreateQuizPageState();
-}
-
-class _CreateQuizPageState extends State<CreateQuizPage> {
   final controller=Get.put(CreateQuizController());
+
   @override
   Widget build(BuildContext context) {
     // print('isAutoValidActive $isAutoValidActive');
@@ -124,6 +120,4 @@ class _CreateQuizPageState extends State<CreateQuizPage> {
       ),
     );
   }
-
-
 }

@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
-import 'package:quiz_app_getx/screens/play_quiz_screen.dart';
-import 'package:quiz_app_getx/services/hive_service.dart';
-import 'package:quiz_app_getx/views/create_quiz_screen.dart';
 
 import '../models/quiz_model.dart';
+import '../services/hive_service.dart';
+import '../views/create_quiz_screen.dart';
 
 class HomeController extends GetxController {
   var quizzes = <Quiz>[].obs;
@@ -16,23 +15,26 @@ class HomeController extends GetxController {
     loadQuizzes();
   }
 
-  void loadQuizzes(){
-    quizzes.value=HiveService.getQuizzes();
+  void loadQuizzes() {
+    quizzes.value = HiveService.getQuizzes();
   }
-  void deleteQuiz(String quizTitle){
+
+  void deleteQuiz(String quizTitle) {
     HiveService.deleteQuiz(quizTitle);
     loadQuizzes();
   }
 
-  Future<void> addQuiz() async{
-    Quiz? newQuiz = await Get.to(()=>const CreateQuizPage());
-    if(newQuiz!=null){
+  Future<void> addQuiz() async {
+    Quiz? newQuiz = await Get.to(() => CreateQuizPage());
+    if (newQuiz != null) {
       await HiveService.addQuiz(newQuiz);
       loadQuizzes();
     }
-
   }
-  void playQuiz(Quiz quiz){
-    Get.to(()=>PlayQuizPage(quiz: quiz));
+  Quiz? quiz;
+
+  void playQuiz(Quiz quiz1) {
+    quiz=quiz1;
+    // Get.to(() => PlayQuizPage(quiz: quiz));
   }
 }
